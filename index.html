@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Parquímetro</title>
+</head>
+<body>
+
+    <h6>Parquímetro</h6>
+
+    <table>
+        <caption>Lista de valores</caption>
+        <thead>
+            <tr>
+                <th>Valor</th>
+                <th>Tempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>R$ 1.00 --> </th>
+                <th>30min.</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th>R$ 1.75 --> </th>
+                <th>60min.</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th>R$ 3.00 --> </th>
+                <th>120min. (tempo máximo)</th>
+            </tr>
+        </tbody>
+    </table><br>
+
+    <label for="ValorAdicional">Qual o valor gostaria de adicionar?</label>
+    <input type="number" name="Valoresc" id="ValorAdicional">
+
+    <button id="CalcularTroca" onclick="CalculoValores()">Calcule</button>
+
+    <p id="ExporValores"></p>
+    <p id="Troco"></p>
+
+    
+</body>
+
+<script src="script.js"></script>
+</html>
