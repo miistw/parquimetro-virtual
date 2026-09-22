@@ -1,32 +1,93 @@
-function CalculoValores () {
+class Parquimetro {
 
-    let ValorInput = Number (document.getElementById ("ValorAdicional").value); 
+    calcularTempo(valor) {
 
-    if (ValorInput == 1.00 || ValorInput <= 1.74) {
-        document.getElementById("ExporValores").textContent = "Você adicionou R$" + ValorInput + " e tem direito a 30min.";
+        if (valor < 1.00) {
+            return 0;
+        }
 
-        var TrocoInput = ValorInput - 1.00;
-        document.getElementById("Troco").textContent = "O seu troco é: R$" + TrocoInput;
-    }
-    
-    else if (ValorInput == 1.75 || ValorInput <= 2.99) {
-        document.getElementById("ExporValores").textContent = "Você adicionou R$" + ValorInput + " e tem direito a 60min.";
+        if (valor < 1.75) {
+            return 30;
+        }
 
-        var TrocoInput = ValorInput - 1.75;
-        document.getElementById("Troco").textContent = "O seu troco é: R$" + TrocoInput;
-    }
-        
-    else if (ValorInput == 3.00 || ValorInput > 3.00) {
-        document.getElementById("ExporValores").textContent = "Você adicionou R$" + ValorInput + " e tem direito a 120min. Este é o tempo máximo permitido.";
+        if (valor < 3.00) {
+            return 60;
+        }
 
-        var TrocoInput = ValorInput - 3.00;
-        document.getElementById("Troco").textContent = "O seu troco é: R$" + TrocoInput;
+        return 120;
     }
 
-    else if (ValorInput < 1.00 || ValorInput > 3.00) {
-        document.getElementById("ExporValores").textContent = "O valor inserido é inválido, tente novamente com os valores mostrados acima.";
+
+    calcularTroco(valor) {
+
+        if (valor < 1.00) {
+            return 0;
+        }
+
+        if (valor < 1.75) {
+            return valor - 1.00;
+        }
+
+        if (valor < 3.00) {
+            return valor - 1.75;
+        }
+
+        return valor - 3.00;
     }
+}
+
+
+function CalculoValores() {
+
+    const input = document.getElementById("ValorAdicional");
+    const resultado = document.getElementById("ExporValores");
+
+    const valorTexto = input.value.trim();
+
+
+    if (valorTexto === "") {
+        resultado.textContent = "Digite um valor para utilizar o parquímetro.";
+        return;
+    }
+
+    const valor = Number(valorTexto);
+
+
+    if (isNaN(valor)) {
+        resultado.textContent = "Digite um valor válido.";
+        return;
+    }
+
+
+    if (valor < 0) {
+        resultado.textContent = "O valor não pode ser negativo.";
+        return;
+    }
+
+
+    const parquimetro = new Parquimetro();
+
+
+    const tempo = parquimetro.calcularTempo(valor);
+
+    if (tempo === 0) {
+        resultado.textContent = "Valor insuficiente. Insira pelo menos R$ 1,00.";
+        return;
+    }
+
+    const troco = parquimetro.calcularTroco(valor);
+
+    if (tempo === 120) {
+        resultado.textContent =
+            "Você inseriu R$ " + valor.toFixed(2) +
+            ". Tempo: 120 minutos (tempo máximo permitido)." +
+            " Troco: R$ " + troco.toFixed(2);
+    } 
     
     else {
+        resultado.textContent =
+            "Você inseriu R$ " + valor.toFixed(2) +
+            ". Tempo: " + tempo + " minutos." +
+            " Troco: R$ " + troco.toFixed(2);
     }
 }
